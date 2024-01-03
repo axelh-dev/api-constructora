@@ -148,7 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Hacia cual servidor se debe de conectar
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173'
+    'https://construc-union.netlify.app/'
 ] 
 
 REST_FRAMEWORK = {
