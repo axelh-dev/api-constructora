@@ -12,7 +12,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from django.contrib.auth import  login, logout, authenticate
 from rest_framework import permissions, status
-from .validations import custom_validation, validate_username, validate_password
+from .validations import validate_username, validate_password
 from rest_framework.exceptions import ValidationError
 from django.shortcuts import render
 
@@ -47,8 +47,7 @@ class UserRegister(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
-        clean_data = custom_validation(request.data)
-        serializer = UserRegisterSerializer(data=clean_data)
+        serializer = UserRegisterSerializer(data=request.data)
 
         if serializer.is_valid(raise_exception=True):
             # Asegúrate de que 'create' devuelva una instancia de usuario
@@ -62,6 +61,7 @@ class UserRegister(APIView):
 
             if user:
                 return Response({'user': user.username, 'role': role, 'municipio': municipio}, status=status.HTTP_201_CREATED)
+
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class UserLogin(APIView):
