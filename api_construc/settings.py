@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -85,17 +86,16 @@ WSGI_APPLICATION = 'api_construc.wsgi.application'
 # python manage.py migrate ---> Crea las tablas 
 # python manage.py runserver --> Ejecuta el server
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'prb001',
-        'USER': 'postgres',
-        'PASSWORD': 'umg123',
-        'HOST': 'localhost',  
-        'PORT': '5432',  
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "api_example_h5e1",
+        "USER": "api_example_h5e1_user",
+        "PASSWORD": "TYJoOrNMXfsjJ07AC6SzfxHf5hhcqFZL",
+        "HOST": "dpg-cmadr30l5elc73eitsa0-a.oregon-postgres.render.com",
+        "PORT": "5432",
     }
 }
-
-AUTH_USER_MODEL = 'tasks.AppUser'
+##AUTH_USER_MODEL = 'tasks.AppUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':(
