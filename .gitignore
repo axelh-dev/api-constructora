@@ -1,0 +1,9 @@
+# Virtual Environment
+venv/
+media/
+Include/
+Lib/
+Scripts/
+*.pyc
+*.pyo
+__pycache__/
