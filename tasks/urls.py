@@ -16,7 +16,7 @@ router.register(r'roles', UserRoleViewSet)
 
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('/', views.home, name='home'),
     path('v1/', include(router.urls) ),
     path('docs/', include_docs_urls(title="Api Constructora")),
     path('api/cargar_archivo/<str:tipo_archivo>/', cargar_archivo, name='cargar_archivo'),
