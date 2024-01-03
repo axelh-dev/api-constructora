@@ -14,6 +14,10 @@ from django.contrib.auth import  login, logout, authenticate
 from rest_framework import permissions, status
 from .validations import custom_validation, validate_username, validate_password
 from rest_framework.exceptions import ValidationError
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'home.html')
 
 @csrf_exempt
 @require_POST
