@@ -24,6 +24,5 @@ urlpatterns = [
     path('api/', include('tasks.urls')),  # Reemplaza 'tu_aplicacion' con el nombre real de tu aplicación
 ]
 
-
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
