@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(!og7xuc2^_j!b%$6j!_gcd1fwh_suum*5@$)(gyq4%z%ne&)1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False 
+DEBUG = True 
 
 ALLOWED_HOSTS = ['backend-example-n2i3.onrender.com']
 
@@ -156,13 +156,11 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
 }
 
-# Cambia STATIC_ROOT para apuntar a la carpeta donde se recopilan los archivos estáticos para producción
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
-# Ruta de archivos de medios (archivos cargados por los usuarios)
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
