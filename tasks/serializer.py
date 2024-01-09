@@ -1,9 +1,14 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import AppUser, municipalidad, Projects, Photos, Videos, userrole
-from django.contrib.auth import get_user_model, authenticate
-
+from django.contrib.auth import  authenticate
+from django.core.files.storage import default_storage
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+from botocore.exceptions import ClientError
+import logging
 from rest_framework.exceptions import ValidationError
+
+logger = logging.getLogger(__name__)
 
 #UserModel = get_user_model()
 
@@ -56,7 +61,15 @@ class MunicipalidadSerializer(serializers.ModelSerializer):
     class Meta:
         model = municipalidad
         fields = '__all__'
-        
+
+    @receiver(pre_delete, sender=municipalidad)
+    def eliminar_archivo_s3_municipalidad(sender, instance, **kwargs):
+     if instance.uploadedFile.name:
+        try:
+            default_storage.delete(instance.uploadedFile.name)
+        except ClientError as e:
+            logger.error(f"Error deleting file from S3: {e}")       
+
 class UserroleSerializer(serializers.ModelSerializer):
     class Meta:
         model = userrole
@@ -72,7 +85,22 @@ class PhotosSerializer(serializers.ModelSerializer):
         model = Photos
         fields = '__all__'
 
+    @receiver(pre_delete, sender='tasks.Photos')
+    def eliminar_archivo_s3_photo(sender, instance, **kwargs):
+     if instance.uploadedFile.name:
+        try:
+            default_storage.delete(instance.uploadedFile.name)
+        except ClientError as e:
+            logger.error(f"Error deleting file from S3: {e}")
 class VideosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Videos
         fields = '__all__'
+
+    @receiver(pre_delete, sender='tasks.Videos')
+    def eliminar_archivo_s3_video(sender, instance, **kwargs):
+     if instance.uploadedFile.name:
+        try:
+            default_storage.delete(instance.uploadedFile.name)
+        except ClientError as e:
+            logger.error(f"Error deleting file from S3: {e}")
