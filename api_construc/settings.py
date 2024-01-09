@@ -94,7 +94,7 @@ DATABASES = {
         "PORT": "5432",
     }
 }
-AUTH_USER_MODEL = 'tasks.AppUser'
+#AUTH_USER_MODEL = 'tasks.AppUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':(
