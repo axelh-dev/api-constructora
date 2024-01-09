@@ -40,7 +40,7 @@ class municipalidad(models.Model):
         if self.uploadedFile.name:
             try:
                 default_storage.delete(self.uploadedFile.name)
-            except ClientError as e:
+            except Exception as e:
                 logger.error(f"Error deleting file from S3: {e}")
 
         super().delete()
@@ -105,7 +105,7 @@ class Photos(models.Model):
      if instance.uploadedFile.name:
         try:
             default_storage.delete(instance.uploadedFile.name)
-        except ClientError as e:
+        except Exception as e:
             logger.error(f"Error deleting file from S3: {e}")
 
 
@@ -123,5 +123,5 @@ class Videos(models.Model):
      if instance.uploadedFile.name:
         try:
             default_storage.delete(instance.uploadedFile.name)
-        except ClientError as e:
+        except Exception as e:
             logger.error(f"Error deleting file from S3: {e}")
