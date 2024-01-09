@@ -13,12 +13,12 @@ from django.contrib.auth import  login, logout, authenticate
 from rest_framework import permissions, status
 from .validations import custom_validation, validate_username, validate_password
 from rest_framework.exceptions import ValidationError
-from django.core.files.storage import default_storage
-from botocore.exceptions import ClientError
+# from django.core.files.storage import default_storage
+# from botocore.exceptions import ClientError
 from django.shortcuts import render
 
-import logging
-logger = logging.getLogger(__name__)
+# import logging
+# logger = logging.getLogger(__name__)
 
 def home(request):
     return render(request, 'home.html')
@@ -113,18 +113,18 @@ class MunicipalidadViewSet(viewsets.ModelViewSet):
     queryset = municipalidad.objects.all()
     serializer_class = MunicipalidadSerializer
 
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
+    # def destroy(self, request, *args, **kwargs):
+    #     instance = self.get_object()
         
-        # Agregar la lógica para eliminar el objeto de S3 aquí
-        if instance.uploadedFile.name:
-            try:
-                default_storage.delete(instance.uploadedFile.name)
-            except ClientError as e:
-                logger.error(f"Error deleting file from S3: {e}")
+    #     # Agregar la lógica para eliminar el objeto de S3 aquí
+    #     if instance.uploadedFile.name:
+    #         try:
+    #             default_storage.delete(instance.uploadedFile.name)
+    #         except ClientError as e:
+    #             logger.error(f"Error deleting file from S3: {e}")
 
-        self.perform_destroy(instance)
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    #     self.perform_destroy(instance)
+    #     return Response(status=status.HTTP_204_NO_CONTENT)
     
 class UserRoleViewSet(viewsets.ModelViewSet):
     queryset = userrole.objects.all()
@@ -173,30 +173,30 @@ class PhotosViewSet(viewsets.ModelViewSet):
     queryset = Photos.objects.all()
     serializer_class = PhotosSerializer
 
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
+    # def destroy(self, request, *args, **kwargs):
+    #     instance = self.get_object()
         
-        if instance.uploadedFile.name:
-            try:
-                default_storage.delete(instance.uploadedFile.name)
-            except ClientError as e:
-                logger.error(f"Error deleting file from S3: {e}")
+    #     if instance.uploadedFile.name:
+    #         try:
+    #             default_storage.delete(instance.uploadedFile.name)
+    #         except ClientError as e:
+    #             logger.error(f"Error deleting file from S3: {e}")
 
-        self.perform_destroy(instance)
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    #     self.perform_destroy(instance)
+    #     return Response(status=status.HTTP_204_NO_CONTENT)
 
 class VideosViewSet(viewsets.ModelViewSet):
     queryset = Videos.objects.all()
     serializer_class = VideosSerializer
     
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
+    # def destroy(self, request, *args, **kwargs):
+    #     instance = self.get_object()
         
-        if instance.uploadedFile.name:
-            try:
-                default_storage.delete(instance.uploadedFile.name)
-            except ClientError as e:
-                logger.error(f"Error deleting file from S3: {e}")
+    #     if instance.uploadedFile.name:
+    #         try:
+    #             default_storage.delete(instance.uploadedFile.name)
+    #         except ClientError as e:
+    #             logger.error(f"Error deleting file from S3: {e}")
 
-        self.perform_destroy(instance)
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    #     self.perform_destroy(instance)
+    #     return Response(status=status.HTTP_204_NO_CONTENT)

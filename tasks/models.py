@@ -3,8 +3,9 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from django.core.files.storage import default_storage
-import logging
-logger = logging.getLogger(__name__)
+
+#import logging
+#logger = logging.getLogger(__name__)
 
 def upload_to(instance, filename):
     return f'{instance.__class__.__name__.lower()}s/{filename}'
@@ -35,14 +36,14 @@ class municipalidad(models.Model):
     def __str__(self):
         return f"User: {self.name}"
     
-    def eliminar_archivo_s3_municipalidad(self):
-        if self.uploadedFile.name:
-            try:
-                default_storage.delete(self.uploadedFile.name)
-            except Exception as e:
-                logger.error(f"Error deleting file from S3: {e}")
+    # def eliminar_archivo_s3_municipalidad(self):
+    #     if self.uploadedFile.name:
+    #         try:
+    #             default_storage.delete(self.uploadedFile.name)
+    #         except Exception as e:
+    #             logger.error(f"Error deleting file from S3: {e}")
 
-        super().delete()
+    #     super().delete()
 
 class userrole(models.Model):
     role_id = models.BigAutoField(primary_key=True)
@@ -99,13 +100,13 @@ class Photos(models.Model):
     def __str__(self):
         return f"Photo: {self.name}"
 
-    @receiver(pre_delete, sender='tasks.Photos')
-    def eliminar_archivo_s3_photo(sender, instance, **kwargs):
-     if instance.uploadedFile.name:
-        try:
-            default_storage.delete(instance.uploadedFile.name)
-        except Exception as e:
-            logger.error(f"Error deleting file from S3: {e}")
+    # @receiver(pre_delete, sender='tasks.Photos')
+    # def eliminar_archivo_s3_photo(sender, instance, **kwargs):
+    #  if instance.uploadedFile.name:
+    #     try:
+    #         default_storage.delete(instance.uploadedFile.name)
+    #     except Exception as e:
+    #         logger.error(f"Error deleting file from S3: {e}")
 
 
 class Videos(models.Model):
@@ -117,10 +118,10 @@ class Videos(models.Model):
     def __str__(self):
         return f"Video: {self.name}"
     
-    @receiver(pre_delete, sender='tasks.Videos')
-    def eliminar_archivo_s3_video(sender, instance, **kwargs):
-     if instance.uploadedFile.name:
-        try:
-            default_storage.delete(instance.uploadedFile.name)
-        except Exception as e:
-            logger.error(f"Error deleting file from S3: {e}")
+    # @receiver(pre_delete, sender='tasks.Videos')
+    # def eliminar_archivo_s3_video(sender, instance, **kwargs):
+    #  if instance.uploadedFile.name:
+    #     try:
+    #         default_storage.delete(instance.uploadedFile.name)
+    #     except Exception as e:
+    #         logger.error(f"Error deleting file from S3: {e}")
