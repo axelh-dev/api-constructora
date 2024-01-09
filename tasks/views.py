@@ -11,7 +11,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from django.contrib.auth import  login, logout, authenticate
 from rest_framework import permissions, status
-from .validations import custom_validation, validate_username, validate_password
+from .validations import  validate_username, validate_password
 from rest_framework.exceptions import ValidationError
 # from django.core.files.storage import default_storage
 # from botocore.exceptions import ClientError
