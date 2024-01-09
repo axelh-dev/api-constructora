@@ -4,7 +4,6 @@ from django.contrib.auth import  authenticate
 from django.core.files.storage import default_storage
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
-from botocore.exceptions import ClientError
 import logging
 from rest_framework.exceptions import ValidationError
 
@@ -67,7 +66,7 @@ class MunicipalidadSerializer(serializers.ModelSerializer):
      if instance.uploadedFile.name:
         try:
             default_storage.delete(instance.uploadedFile.name)
-        except ClientError as e:
+        except Exception as e:
             logger.error(f"Error deleting file from S3: {e}")       
 
 class UserroleSerializer(serializers.ModelSerializer):
@@ -90,8 +89,10 @@ class PhotosSerializer(serializers.ModelSerializer):
      if instance.uploadedFile.name:
         try:
             default_storage.delete(instance.uploadedFile.name)
-        except ClientError as e:
-            logger.error(f"Error deleting file from S3: {e}")
+        except Exception as e:
+            logger.error(f"Error deleting file from S3: {e}")    
+   
+
 class VideosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Videos
@@ -102,5 +103,5 @@ class VideosSerializer(serializers.ModelSerializer):
      if instance.uploadedFile.name:
         try:
             default_storage.delete(instance.uploadedFile.name)
-        except ClientError as e:
-            logger.error(f"Error deleting file from S3: {e}")
+        except Exception as e:
+            logger.error(f"Error deleting file from S3: {e}") 
