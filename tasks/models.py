@@ -25,7 +25,6 @@ class AppUserManager(BaseUserManager):
         return self.create_user(username, password, **extra_fields)
 
 
-
 class municipalidad(models.Model):
     munici_id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=50, null=False)
@@ -106,7 +105,7 @@ def delete_Photos(sender, instance, **kwargs):
         
         default_storage.delete(file_name)
     except Exception as e:
-        print(f"Error al eliminar el archivo para municipalidad {instance.id}: {e}")
+        print(f"Error al eliminar el archivo para fotos {instance.id}: {e}")
     
 class Videos(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -124,5 +123,5 @@ def delete_Videos(sender, instance, **kwargs):
         
         default_storage.delete(file_name)
     except Exception as e:
-        print(f"Error al eliminar el archivo para municipalidad {instance.id}: {e}")
+        print(f"Error al eliminar el archivo para videos {instance.id}: {e}")
     
