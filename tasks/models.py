@@ -1,8 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from django.db.models.signals import pre_delete
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin,BaseUserManager
 from django.dispatch import receiver
 from django.core.files.storage import default_storage
+
 
 
 def upload_to(instance, filename):
@@ -33,7 +33,7 @@ class municipalidad(models.Model):
     
     def __str__(self):
         return f"User: {self.name}"
-
+    
 @receiver(models.signals.pre_delete, sender=municipalidad)
 def delete_municipalidad(sender, instance, **kwargs):
     try:
@@ -42,13 +42,14 @@ def delete_municipalidad(sender, instance, **kwargs):
         default_storage.delete(file_name)
     except Exception as e:
         print(f"Error al eliminar el archivo para municipalidad {instance.munici_id}: {e}")
-
+    
+    
 class userrole(models.Model):
     role_id = models.BigAutoField(primary_key=True)
     descrip_role = models.CharField(max_length=20, null=False)
     
     def __str__(self):
-        return f"User: {self.name}"
+     return f"Role: {self.descrip_role}"
 
 class AppUser(AbstractBaseUser, PermissionsMixin):
     user_id = models.AutoField(primary_key=True)
@@ -93,7 +94,7 @@ class Photos(models.Model):
     id = models.BigAutoField(primary_key=True)
     project_id = models.ForeignKey(Projects, on_delete=models.CASCADE, related_name='photos')
     name = models.CharField(max_length=200, null=False)
-    uploadedFile = models.FileField(upload_to="image/", null=True)
+    uploadedFile = models.FileField(upload_to="image/", default="NULL")
 
     def __str__(self):
         return f"Photo: {self.name}"
@@ -107,16 +108,15 @@ def delete_Photos(sender, instance, **kwargs):
     except Exception as e:
         print(f"Error al eliminar el archivo para municipalidad {instance.id}: {e}")
     
-
 class Videos(models.Model):
     id = models.BigAutoField(primary_key=True)
     project_id = models.ForeignKey(Projects, on_delete=models.CASCADE, related_name='videos')
     name = models.CharField(max_length=200, null=False)
-    uploadedFile = models.FileField(upload_to="Videos/", null=True)
+    uploadedFile = models.FileField(upload_to="Videos/", default="NULL")
 
     def __str__(self):
         return f"Video: {self.name}"
-
+    
 @receiver(models.signals.pre_delete, sender=Videos)
 def delete_Videos(sender, instance, **kwargs):
     try:
@@ -125,4 +125,4 @@ def delete_Videos(sender, instance, **kwargs):
         default_storage.delete(file_name)
     except Exception as e:
         print(f"Error al eliminar el archivo para municipalidad {instance.id}: {e}")
-       
+    
