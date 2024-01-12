@@ -105,7 +105,7 @@ def delete_Photos(sender, instance, **kwargs):
         
         default_storage.delete(file_name)
     except Exception as e:
-        print(f"Error al eliminar el archivo para municipalidad {instance.munici_id}: {e}")
+        print(f"Error al eliminar el archivo para municipalidad {instance.id}: {e}")
     
 
 class Videos(models.Model):
@@ -124,5 +124,5 @@ def delete_Videos(sender, instance, **kwargs):
         
         default_storage.delete(file_name)
     except Exception as e:
-        print(f"Error al eliminar el archivo para municipalidad {instance.munici_id}: {e}")
+        print(f"Error al eliminar el archivo para municipalidad {instance.id}: {e}")
        
