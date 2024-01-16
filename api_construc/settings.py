@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(!og7xuc2^_j!b%$6j!_gcd1fwh_suum*5@$)(gyq4%z%ne&)1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True 
+DEBUG = False 
 
 ALLOWED_HOSTS = ['backend-constructora.onrender.com']
 
@@ -169,8 +169,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
-AWS_ACCESS_KEY_ID = 'AKIAUNGW4FNODUQDGOCZ'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'AKIAUNGW4FNOL4RTLD43'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'construc-bucket'
 AWS_S3_SIGNATURE_NAME = 's3v4'
 AWS_S3_DATE_OVERRIDE = 'X-Amz-Date'
